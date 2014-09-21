@@ -34,11 +34,7 @@ tblsubtraintest <- rbind(tblsubtrain, tblsubtest)
 names(tbly_train)[1] <- "Activity"
 names(tbly_test)[1] <- "Activity"
 tblytraintest <- rbind(tbly_train, tbly_test)
-#Part4 Answer
-cDescNames <- gsub("\\(", "", tblfeatures$V2)
-cDescNames <- gsub("\\)", "", cDescNames)
-cDescNames <- gsub("-", "", cDescNames)
-colnames(tblXtraintest) <- cDescNames
+
 #Part1 Answer
 tbldata <- cbind(tblXtraintest, tblsubtraintest, tblytraintest)
 #---------------------------------------------------------------
@@ -50,11 +46,16 @@ tblstddata <- select(tbldata, num_range("V", grep('std', tblfeatures$V2)))
 tblmeanNstd <- cbind(tblmeandata, tblstddata)
 #------------------------------------------------------------------------------
 #Part 3
+tblActLabels <- tbl_df(read.table("./activity_labels.txt"))
 names(tblActLabels)[1] <- "Activity"    
 tblActmerge <- merge(tbldata, tblActLabels, by='Activity')
 names(tblActmerge)[564] <- "ActDesc" 
 #-----------------------------------------------------------------------------
-
+#Part4 Answer
+cDescNames <- gsub("\\(", "", tblfeatures$V2)
+cDescNames <- gsub("\\)", "", cDescNames)
+cDescNames <- gsub("-", "", cDescNames)
+colnames(tbldata) <- cDescNames
 
 
 
